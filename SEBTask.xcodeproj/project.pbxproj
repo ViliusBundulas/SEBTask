@@ -81,6 +81,7 @@
 		2553372B26CC68CD005597FC = {
 			isa = PBXGroup;
 			children = (
+				2553377526CC76EA005597FC /* Networking */,
 				2553377126CC6BF6005597FC /* Models */,
 				2553377026CC6BEA005597FC /* ViewModels */,
 				2553376F26CC6BDC005597FC /* Views */,
@@ -177,6 +178,13 @@
 				2553377226CC6C37005597FC /* Transaction.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		2553377526CC76EA005597FC /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

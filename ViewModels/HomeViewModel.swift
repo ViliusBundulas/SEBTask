@@ -15,16 +15,21 @@ class HomeViewModel {
         getTransactions()
     }
     
+    var transactions = Observable<Transactions?>(nil)
+    
     func getTransactions() {
         self.apiManager.fetchTransactions { result in
             switch result {
             case .success(let result):
-                result.forEach { item in
-                    print(item.counterPartyName)
-                }
+                self.transactions.value = result
             case .failure:
                 print("Failed to get transactions")
             }
         }
     }
 }
+
+
+//                print(self.creditTransactions.value!)
+//                let sum = numbers.reduce(0) { $0 + (Double($1) ?? .zero) }
+//                print(sum)

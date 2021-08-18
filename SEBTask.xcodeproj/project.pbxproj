@@ -20,6 +20,7 @@
 		2553377926CC79D4005597FC /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553377826CC79D4005597FC /* ApiManager.swift */; };
 		2553377B26CC7A0D005597FC /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553377A26CC7A0D005597FC /* Observable.swift */; };
 		2553377E26CC83FE005597FC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2553377D26CC83FE005597FC /* Alamofire */; };
+		2553378126CD6BC8005597FC /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553378026CD6BC8005597FC /* DependencyContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		2553377626CC7968005597FC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		2553377826CC79D4005597FC /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		2553377A26CC7A0D005597FC /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		2553378026CD6BC8005597FC /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 		2553372B26CC68CD005597FC = {
 			isa = PBXGroup;
 			children = (
+				2553377F26CD6BA4005597FC /* Factories */,
 				2553377526CC76EA005597FC /* Networking */,
 				2553377126CC6BF6005597FC /* Models */,
 				2553377026CC6BEA005597FC /* ViewModels */,
@@ -196,6 +199,14 @@
 				2553377826CC79D4005597FC /* ApiManager.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		2553377F26CD6BA4005597FC /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				2553378026CD6BC8005597FC /* DependencyContainer.swift */,
+			);
+			path = Factories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,6 +351,7 @@
 				2553377B26CC7A0D005597FC /* Observable.swift in Sources */,
 				2553377726CC7968005597FC /* HomeViewModel.swift in Sources */,
 				2553377926CC79D4005597FC /* ApiManager.swift in Sources */,
+				2553378126CD6BC8005597FC /* DependencyContainer.swift in Sources */,
 				2553376A26CC69D2005597FC /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,14 +7,7 @@
 
 import Foundation
 
-enum TransactionType: String, Codable {
-    case credit = "credit"
-    case debit = "debit"
-}
-
-struct Transactions: Codable {
-    let items: [Transaction]
-}
+typealias Transactions = [Transaction]
 
 struct Transaction: Codable {
     let id: String
@@ -25,3 +18,9 @@ struct Transaction: Codable {
     let description: String
     let date: String
 }
+
+enum TransactionType: String, Codable {
+    case credit = "credit"
+    case debit = "debit"
+}
+

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,10 @@
 		2553375A26CC68D1005597FC /* SEBTaskUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553375926CC68D1005597FC /* SEBTaskUITests.swift */; };
 		2553376A26CC69D2005597FC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553376926CC69D2005597FC /* HomeViewController.swift */; };
 		2553377326CC6C37005597FC /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553377226CC6C37005597FC /* Transaction.swift */; };
+		2553377726CC7968005597FC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553377626CC7968005597FC /* HomeViewModel.swift */; };
+		2553377926CC79D4005597FC /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553377826CC79D4005597FC /* ApiManager.swift */; };
+		2553377B26CC7A0D005597FC /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553377A26CC7A0D005597FC /* Observable.swift */; };
+		2553377E26CC83FE005597FC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2553377D26CC83FE005597FC /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,9 @@
 		2553375B26CC68D1005597FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2553376926CC69D2005597FC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		2553377226CC6C37005597FC /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		2553377626CC7968005597FC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		2553377826CC79D4005597FC /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		2553377A26CC7A0D005597FC /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2553377E26CC83FE005597FC /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +176,8 @@
 		2553377026CC6BEA005597FC /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2553377626CC7968005597FC /* HomeViewModel.swift */,
+				2553377A26CC7A0D005597FC /* Observable.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -183,6 +193,7 @@
 		2553377526CC76EA005597FC /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				2553377826CC79D4005597FC /* ApiManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -203,6 +214,9 @@
 			dependencies = (
 			);
 			name = SEBTask;
+			packageProductDependencies = (
+				2553377D26CC83FE005597FC /* Alamofire */,
+			);
 			productName = SEBTask;
 			productReference = 2553373426CC68CD005597FC /* SEBTask.app */;
 			productType = "com.apple.product-type.application";
@@ -274,6 +288,9 @@
 				Base,
 			);
 			mainGroup = 2553372B26CC68CD005597FC;
+			packageReferences = (
+				2553377C26CC83FE005597FC /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 2553373526CC68CD005597FC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -320,6 +337,9 @@
 				2553373826CC68CD005597FC /* AppDelegate.swift in Sources */,
 				2553373A26CC68CD005597FC /* SceneDelegate.swift in Sources */,
 				2553377326CC6C37005597FC /* Transaction.swift in Sources */,
+				2553377B26CC7A0D005597FC /* Observable.swift in Sources */,
+				2553377726CC7968005597FC /* HomeViewModel.swift in Sources */,
+				2553377926CC79D4005597FC /* ApiManager.swift in Sources */,
 				2553376A26CC69D2005597FC /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -643,6 +663,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2553377C26CC83FE005597FC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2553377D26CC83FE005597FC /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2553377C26CC83FE005597FC /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2553372C26CC68CD005597FC /* Project object */;
 }

@@ -51,7 +51,7 @@ class TransactionListCell: UITableViewCell {
             make.top.equalTo(nameLabel.snp.bottom).offset(5)
             make.leading.equalTo(nameLabel)
             make.width.equalTo(nameLabel)
-            make.height.equalTo(20)
+            make.bottom.equalTo(contentView).inset(10)
         }
         
         amountLabel.snp.makeConstraints { make in

@@ -27,6 +27,15 @@ final class HomeViewController: UIViewController {
         viewModel.transactions.bind { _ in
             self.transactionListTableView.reloadData()
         }
+        
+        viewModel.isLoading.bind { isLoading in
+            switch isLoading {
+            case true:
+                self.activityIndicatorView.startAnimating()
+            case false:
+                self.activityIndicatorView.stopAnimating()
+            }
+        }
     }
     
     //MARK: - App life cycles
@@ -34,14 +43,14 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindViewModel()
-        setupConstrains()
         
         view.addSubview(transactionListTableView)
+        view.addSubview(activityIndicatorView)
+        setupConstrains()
 
-        view.backgroundColor = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
     }
     
-    //MAKR: - UI elements
+    //MARK: - UI elements
     
     private lazy var transactionListTableView: UITableView = {
        let tableView = UITableView()
@@ -52,11 +61,23 @@ final class HomeViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.style = .large
+        
+        return indicator
+    }()
+    
     //MARK: - Setup constrains
     
     func setupConstrains() {
+        
         transactionListTableView.snp.makeConstraints { make in
             make.leading.trailing.top.bottom.equalTo(view)
+        }
+        
+        activityIndicatorView.snp.makeConstraints { make in
+            make.centerX.centerY.equalTo(view)
         }
     }
 }
@@ -76,13 +97,5 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.amountLabel.text = viewModel.transactions.value?[indexPath.row].amount
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        90
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        90
     }
 }

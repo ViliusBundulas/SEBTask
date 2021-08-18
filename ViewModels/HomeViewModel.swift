@@ -14,22 +14,19 @@ class HomeViewModel {
         self.apiManager = apiManager
         getTransactions()
     }
-    
+    var isLoading = Observable<Bool>(false)
     var transactions = Observable<Transactions?>(nil)
     
     func getTransactions() {
+        self.isLoading.value = true
         self.apiManager.fetchTransactions { result in
             switch result {
             case .success(let result):
                 self.transactions.value = result
+                self.isLoading.value = false
             case .failure:
                 print("Failed to get transactions")
             }
         }
     }
 }
-
-
-//                print(self.creditTransactions.value!)
-//                let sum = numbers.reduce(0) { $0 + (Double($1) ?? .zero) }
-//                print(sum)

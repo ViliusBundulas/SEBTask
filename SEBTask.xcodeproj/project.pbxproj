@@ -21,6 +21,8 @@
 		2553377B26CC7A0D005597FC /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553377A26CC7A0D005597FC /* Observable.swift */; };
 		2553377E26CC83FE005597FC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2553377D26CC83FE005597FC /* Alamofire */; };
 		2553378126CD6BC8005597FC /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553378026CD6BC8005597FC /* DependencyContainer.swift */; };
+		2553378326CDB6F0005597FC /* TransactionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553378226CDB6F0005597FC /* TransactionListCell.swift */; };
+		2553378626CDB76A005597FC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2553378526CDB76A005597FC /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,7 @@
 		2553377826CC79D4005597FC /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		2553377A26CC7A0D005597FC /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		2553378026CD6BC8005597FC /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
+		2553378226CDB6F0005597FC /* TransactionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2553377E26CC83FE005597FC /* Alamofire in Frameworks */,
+				2553378626CDB76A005597FC /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +176,7 @@
 		2553376F26CC6BDC005597FC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2553378226CDB6F0005597FC /* TransactionListCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 			name = SEBTask;
 			packageProductDependencies = (
 				2553377D26CC83FE005597FC /* Alamofire */,
+				2553378526CDB76A005597FC /* SnapKit */,
 			);
 			productName = SEBTask;
 			productReference = 2553373426CC68CD005597FC /* SEBTask.app */;
@@ -301,6 +307,7 @@
 			mainGroup = 2553372B26CC68CD005597FC;
 			packageReferences = (
 				2553377C26CC83FE005597FC /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2553378426CDB76A005597FC /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 2553373526CC68CD005597FC /* Products */;
 			projectDirPath = "";
@@ -352,6 +359,7 @@
 				2553377726CC7968005597FC /* HomeViewModel.swift in Sources */,
 				2553377926CC79D4005597FC /* ApiManager.swift in Sources */,
 				2553378126CD6BC8005597FC /* DependencyContainer.swift in Sources */,
+				2553378326CDB6F0005597FC /* TransactionListCell.swift in Sources */,
 				2553376A26CC69D2005597FC /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -685,6 +693,14 @@
 				minimumVersion = 5.4.3;
 			};
 		};
+		2553378426CDB76A005597FC /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -692,6 +708,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2553377C26CC83FE005597FC /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		2553378526CDB76A005597FC /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2553378426CDB76A005597FC /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class HomeViewModel {
     private let apiManager: ApiManager
@@ -18,6 +19,7 @@ class HomeViewModel {
     var transactions = Observable<Transactions?>(nil)
     var debitTransactions = Observable<Transactions?>(nil)
     var creditTransactions = Observable<Transactions?>(nil)
+    var selectedSegmentControlIndex = Observable<Int>(0)
     
     func getTransactions() {
         self.isLoading.value = true
@@ -32,5 +34,9 @@ class HomeViewModel {
                 print("Failed to get transactions")
             }
         }
+    }
+    
+    func getSelectedControlIndex(sender: UISegmentedControl) {
+        self.selectedSegmentControlIndex.value = sender.selectedSegmentIndex
     }
 }

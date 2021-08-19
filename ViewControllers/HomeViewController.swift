@@ -36,6 +36,10 @@ final class HomeViewController: UIViewController {
             self.transactionListTableView.reloadData()
         }
         
+        viewModel.selectedSegmentControlIndex.bind { _ in
+            self.transactionListTableView.reloadData()
+        }
+        
         viewModel.isLoading.bind { isLoading in
             switch isLoading {
             case true:
@@ -61,9 +65,15 @@ final class HomeViewController: UIViewController {
     //MARK: - UI elements
     
     private lazy var segmentedControl: UISegmentedControl = {
-        let sc = UISegmentedControl(items: ["All Transactions", "Deposits", "Credits"])
+        let sc = UISegmentedControl(items: ["All Transactions", "Debit", "Credits"])
+        sc.selectedSegmentIndex = 0
+        sc.addTarget(self, action: #selector(handleSegmentChange), for: .valueChanged)
         return sc
     }()
+    
+    @objc func handleSegmentChange(sender: UISegmentedControl) {
+        viewModel.getSelectedControlIndex(sender: sender)
+    }
     
     private lazy var transactionListTableView: UITableView = {
         let tableView = UITableView()
@@ -114,16 +124,38 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.transactions.value?.count ?? 0
+        
+        switch viewModel.selectedSegmentControlIndex.value {
+        case 0:
+            return viewModel.transactions.value?.count ?? 0
+        case 1:
+            return viewModel.debitTransactions.value?.count ?? 0
+        case 2:
+            return viewModel.creditTransactions.value?.count ?? 0
+        default:
+            return 66
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionListCell", for: indexPath) as! TransactionListCell
         
-        cell.nameLabel.text = viewModel.transactions.value?[indexPath.row].counterPartyName
-        cell.dateLabel.text = viewModel.transactions.value?[indexPath.row].date
-        cell.amountLabel.text = viewModel.transactions.value?[indexPath.row].amount
-        
+        switch viewModel.selectedSegmentControlIndex.value {
+        case 0:
+            cell.nameLabel.text = viewModel.transactions.value?[indexPath.row].counterPartyName
+            cell.dateLabel.text = viewModel.transactions.value?[indexPath.row].date
+            cell.amountLabel.text = viewModel.transactions.value?[indexPath.row].amount
+        case 1:
+            cell.nameLabel.text = viewModel.debitTransactions.value?[indexPath.row].counterPartyName
+            cell.dateLabel.text = viewModel.debitTransactions.value?[indexPath.row].date
+            cell.amountLabel.text = viewModel.debitTransactions.value?[indexPath.row].amount
+        case 2:
+            cell.nameLabel.text = viewModel.creditTransactions.value?[indexPath.row].counterPartyName
+            cell.dateLabel.text = viewModel.creditTransactions.value?[indexPath.row].date
+            cell.amountLabel.text = viewModel.creditTransactions.value?[indexPath.row].amount
+        default:
+            return cell
+        }
         return cell
     }
 }

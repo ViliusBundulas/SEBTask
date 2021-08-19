@@ -28,12 +28,22 @@ final class HomeViewController: UIViewController {
             self.transactionListTableView.reloadData()
         }
         
+        viewModel.debitTransactions.bind { _ in
+            self.transactionListTableView.reloadData()
+        }
+        
+        viewModel.creditTransactions.bind { _ in
+            self.transactionListTableView.reloadData()
+        }
+        
         viewModel.isLoading.bind { isLoading in
             switch isLoading {
             case true:
                 self.activityIndicatorView.startAnimating()
+                self.transactionListTableView.isHidden = true
             case false:
                 self.activityIndicatorView.stopAnimating()
+                self.transactionListTableView.isHidden = false
             }
         }
     }
@@ -42,18 +52,21 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         bindViewModel()
-        
-        view.addSubview(transactionListTableView)
-        view.addSubview(activityIndicatorView)
+        setupViews()
         setupConstrains()
-
     }
     
     //MARK: - UI elements
     
+    private lazy var segmentedControl: UISegmentedControl = {
+        let sc = UISegmentedControl(items: ["All Transactions", "Deposits", "Credits"])
+        return sc
+    }()
+    
     private lazy var transactionListTableView: UITableView = {
-       let tableView = UITableView()
+        let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(TransactionListCell.self, forCellReuseIdentifier: "TransactionListCell")
@@ -68,21 +81,36 @@ final class HomeViewController: UIViewController {
         return indicator
     }()
     
+    //MARK: - Setup views
+    
+    func setupViews() {
+        view.addSubview(transactionListTableView)
+        view.addSubview(activityIndicatorView)
+        view.addSubview(segmentedControl)
+    }
+    
     //MARK: - Setup constrains
     
     func setupConstrains() {
         
         transactionListTableView.snp.makeConstraints { make in
-            make.leading.trailing.top.bottom.equalTo(view)
+            make.leading.trailing.bottom.equalTo(view)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(200)
         }
         
         activityIndicatorView.snp.makeConstraints { make in
             make.centerX.centerY.equalTo(view)
         }
+        
+        segmentedControl.snp.makeConstraints { make in
+            make.bottom.equalTo(transactionListTableView.snp.top)
+            make.leading.trailing.equalTo(transactionListTableView)
+            make.height.equalTo(50)
+        }
     }
 }
 
-    //MARK: - Transaction list table view implementation
+//MARK: - Transaction list table view implementation
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

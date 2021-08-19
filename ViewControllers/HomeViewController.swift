@@ -71,10 +71,6 @@ final class HomeViewController: UIViewController {
         return sc
     }()
     
-    @objc func handleSegmentChange(sender: UISegmentedControl) {
-        viewModel.getSelectedControlIndex(sender: sender)
-    }
-    
     private lazy var transactionListTableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -90,6 +86,12 @@ final class HomeViewController: UIViewController {
         
         return indicator
     }()
+    
+    //MARK: - Button actions
+    
+    @objc func handleSegmentChange(sender: UISegmentedControl) {
+        viewModel.getSelectedControlIndex(sender: sender)
+    }
     
     //MARK: - Setup views
     
@@ -133,7 +135,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         case 2:
             return viewModel.creditTransactions.value?.count ?? 0
         default:
-            return 66
+            return viewModel.transactions.value?.count ?? 0
         }
     }
     
@@ -142,20 +144,26 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch viewModel.selectedSegmentControlIndex.value {
         case 0:
-            cell.nameLabel.text = viewModel.transactions.value?[indexPath.row].counterPartyName
-            cell.dateLabel.text = viewModel.transactions.value?[indexPath.row].date
-            cell.amountLabel.text = viewModel.transactions.value?[indexPath.row].amount
+            makeCell(cell, at: indexPath, from: viewModel.transactions.value!)
         case 1:
-            cell.nameLabel.text = viewModel.debitTransactions.value?[indexPath.row].counterPartyName
-            cell.dateLabel.text = viewModel.debitTransactions.value?[indexPath.row].date
-            cell.amountLabel.text = viewModel.debitTransactions.value?[indexPath.row].amount
+            makeCell(cell, at: indexPath, from: viewModel.debitTransactions.value!)
         case 2:
-            cell.nameLabel.text = viewModel.creditTransactions.value?[indexPath.row].counterPartyName
-            cell.dateLabel.text = viewModel.creditTransactions.value?[indexPath.row].date
-            cell.amountLabel.text = viewModel.creditTransactions.value?[indexPath.row].amount
+            makeCell(cell, at: indexPath, from: viewModel.creditTransactions.value!)
         default:
             return cell
         }
         return cell
+    }
+}
+
+    //MARK: - Helpers
+
+private extension HomeViewController {
+    
+    func makeCell(_ cell: TransactionListCell, at index: IndexPath, from transactions: Transactions) {
+        
+        cell.nameLabel.text = transactions[index.row].counterPartyName
+        cell.dateLabel.text = transactions[index.row].date
+        cell.amountLabel.text = transactions[index.row].amount
     }
 }

@@ -65,7 +65,7 @@ final class HomeViewController: UIViewController {
     //MARK: - UI elements
     
     private lazy var segmentedControl: UISegmentedControl = {
-        let sc = UISegmentedControl(items: ["All Transactions", "Debit", "Credits"])
+        let sc = UISegmentedControl(items: ["All Transactions", "Credits", "Debits"])
         sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: #selector(handleSegmentChange), for: .valueChanged)
         return sc
@@ -131,9 +131,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             return viewModel.transactions.value?.count ?? 0
         case 1:
-            return viewModel.debitTransactions.value?.count ?? 0
-        case 2:
             return viewModel.creditTransactions.value?.count ?? 0
+        case 2:
+            return viewModel.debitTransactions.value?.count ?? 0
         default:
             return viewModel.transactions.value?.count ?? 0
         }
@@ -144,25 +144,31 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch viewModel.selectedSegmentControlIndex.value {
         case 0:
-            makeCell(cell, at: indexPath, from: viewModel.transactions.value!)
+            if viewModel.transactions.value?[indexPath.row].type == .credit {
+                cell.amountLabel.text = "+" + (viewModel.transactions.value?[indexPath.row].amount)!
+                cell.amountLabel.textColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+                cell.nameLabel.text = viewModel.transactions.value?[indexPath.row].counterPartyName
+                cell.dateLabel.text = viewModel.transactions.value?[indexPath.row].date
+            } else if viewModel.transactions.value?[indexPath.row].type == .debit {
+                cell.amountLabel.text = "-" + (viewModel.transactions.value?[indexPath.row].amount)!
+                cell.amountLabel.textColor = #colorLiteral(red: 1, green: 0.2777053714, blue: 0.3239941895, alpha: 1)
+                cell.nameLabel.text = viewModel.transactions.value?[indexPath.row].counterPartyName
+                cell.dateLabel.text = viewModel.transactions.value?[indexPath.row].date
+            }
         case 1:
-            makeCell(cell, at: indexPath, from: viewModel.debitTransactions.value!)
+            cell.amountLabel.textColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+            cell.amountLabel.text = "+" + (viewModel.creditTransactions.value?[indexPath.row].amount)!
+            cell.nameLabel.text = viewModel.creditTransactions.value?[indexPath.row].counterPartyName
+            cell.dateLabel.text = viewModel.creditTransactions.value?[indexPath.row].date
+
         case 2:
-            makeCell(cell, at: indexPath, from: viewModel.creditTransactions.value!)
+            cell.amountLabel.textColor = #colorLiteral(red: 1, green: 0.2777053714, blue: 0.3239941895, alpha: 1)
+            cell.amountLabel.text = "-" + (viewModel.debitTransactions.value?[indexPath.row].amount)!
+            cell.nameLabel.text = viewModel.debitTransactions.value?[indexPath.row].counterPartyName
+            cell.dateLabel.text = viewModel.debitTransactions.value?[indexPath.row].date
         default:
             return cell
         }
         return cell
-    }
-}
-
-    //MARK: - Helpers
-
-private extension HomeViewController {
-    
-    func makeCell(_ cell: TransactionListCell, at index: IndexPath, from transactions: Transactions) {
-        cell.nameLabel.text = transactions[index.row].counterPartyName
-        cell.dateLabel.text = transactions[index.row].date
-        cell.amountLabel.text = transactions[index.row].amount
     }
 }

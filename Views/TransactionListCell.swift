@@ -35,23 +35,25 @@ class TransactionListCell: UITableViewCell {
         self.contentView.addSubview(amountLabel)
         
         setupConstrains()
+        configureDateLabel()
+        configureAmountLabel()
     }
     
     //MARK: - Setup constrains
     
     func setupConstrains() {
         nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView).offset(10)
+            make.top.equalTo(contentView).offset(5)
             make.leading.equalTo(contentView).offset(10)
             make.width.equalTo(200)
             make.height.equalTo(30)
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(5)
+            make.top.equalTo(nameLabel.snp.bottom).offset(3)
             make.leading.equalTo(nameLabel)
             make.width.equalTo(nameLabel)
-            make.bottom.equalTo(contentView).inset(10)
+            make.bottom.equalTo(contentView).inset(5)
         }
         
         amountLabel.snp.makeConstraints { make in
@@ -60,5 +62,19 @@ class TransactionListCell: UITableViewCell {
             make.height.equalTo(30)
             make.centerY.equalTo(contentView)
         }
+    }
+}
+
+    //MARK: - COnfigure UI elements
+
+private extension TransactionListCell {
+    
+    func configureDateLabel() {
+        self.dateLabel.alpha = 0.6
+    }
+    
+    func configureAmountLabel() {
+        self.amountLabel.font = UIFont.boldSystemFont(ofSize: self.amountLabel.font.pointSize)
+        self.amountLabel.textAlignment = .right
     }
 }

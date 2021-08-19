@@ -117,7 +117,7 @@ final class HomeViewController: UIViewController {
         segmentedControl.snp.makeConstraints { make in
             make.bottom.equalTo(transactionListTableView.snp.top)
             make.leading.trailing.equalTo(transactionListTableView)
-            make.height.equalTo(50)
+            make.height.equalTo(30)
         }
     }
 }

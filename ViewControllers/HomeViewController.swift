@@ -145,25 +145,25 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         switch viewModel.selectedSegmentControlIndex.value {
         case 0:
             if viewModel.transactions.value?[indexPath.row].type == .credit {
-                cell.amountLabel.text = "+" + (viewModel.transactions.value?[indexPath.row].amount)!
+                cell.amountLabel.text = "+" + (viewModel.transactions.value?[indexPath.row].amount)! + " Eur"
                 cell.amountLabel.textColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
                 cell.nameLabel.text = viewModel.transactions.value?[indexPath.row].counterPartyName
                 cell.dateLabel.text = viewModel.transactions.value?[indexPath.row].date
             } else if viewModel.transactions.value?[indexPath.row].type == .debit {
-                cell.amountLabel.text = "-" + (viewModel.transactions.value?[indexPath.row].amount)!
+                cell.amountLabel.text = "-" + (viewModel.transactions.value?[indexPath.row].amount)! + " Eur"
                 cell.amountLabel.textColor = #colorLiteral(red: 1, green: 0.2777053714, blue: 0.3239941895, alpha: 1)
                 cell.nameLabel.text = viewModel.transactions.value?[indexPath.row].counterPartyName
                 cell.dateLabel.text = viewModel.transactions.value?[indexPath.row].date
             }
         case 1:
             cell.amountLabel.textColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
-            cell.amountLabel.text = "+" + (viewModel.creditTransactions.value?[indexPath.row].amount)!
+            cell.amountLabel.text = "+" + (viewModel.creditTransactions.value?[indexPath.row].amount)! + " Eur"
             cell.nameLabel.text = viewModel.creditTransactions.value?[indexPath.row].counterPartyName
             cell.dateLabel.text = viewModel.creditTransactions.value?[indexPath.row].date
 
         case 2:
             cell.amountLabel.textColor = #colorLiteral(red: 1, green: 0.2777053714, blue: 0.3239941895, alpha: 1)
-            cell.amountLabel.text = "-" + (viewModel.debitTransactions.value?[indexPath.row].amount)!
+            cell.amountLabel.text = "-" + (viewModel.debitTransactions.value?[indexPath.row].amount)! + " Eur"
             cell.nameLabel.text = viewModel.debitTransactions.value?[indexPath.row].counterPartyName
             cell.dateLabel.text = viewModel.debitTransactions.value?[indexPath.row].date
         default:

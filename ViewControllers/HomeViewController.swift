@@ -161,7 +161,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 private extension HomeViewController {
     
     func makeCell(_ cell: TransactionListCell, at index: IndexPath, from transactions: Transactions) {
-        
         cell.nameLabel.text = transactions[index.row].counterPartyName
         cell.dateLabel.text = transactions[index.row].date
         cell.amountLabel.text = transactions[index.row].amount

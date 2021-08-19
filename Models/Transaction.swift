@@ -30,9 +30,9 @@ extension Transaction {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        let date = dateFormatter.date(from: date)!
+        let formattedDate = dateFormatter.date(from: date)!
         
-        return date
+        return formattedDate
     }
 }
 

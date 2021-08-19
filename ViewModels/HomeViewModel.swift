@@ -30,8 +30,13 @@ class HomeViewModel {
             switch result {
             case .success(let result):
                 self.transactions.value = result
-                self.debitTransactions.value = result.filter { $0.type == .debit }
-                self.creditTransactions.value = result.filter { $0.type == .credit }
+                    .sorted(by: { $0.dateFromString > $1.dateFromString })
+                self.debitTransactions.value = result
+                    .filter { $0.type == .debit }
+                    .sorted(by: { $0.dateFromString > $1.dateFromString })
+                self.creditTransactions.value = result
+                    .filter { $0.type == .credit }
+                    .sorted(by: { $0.dateFromString > $1.dateFromString })
                 self.sumOfTransactionsAmount.value = result
                     .map { Double($0.amount) ?? 0.0 }
                     .reduce(0, +)

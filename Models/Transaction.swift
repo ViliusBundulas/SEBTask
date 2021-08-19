@@ -9,6 +9,11 @@ import Foundation
 
 typealias Transactions = [Transaction]
 
+enum TransactionType: String, Codable {
+    case credit = "credit"
+    case debit = "debit"
+}
+
 struct Transaction: Codable {
     let id: String
     let counterPartyName: String
@@ -19,8 +24,15 @@ struct Transaction: Codable {
     let date: String
 }
 
-enum TransactionType: String, Codable {
-    case credit = "credit"
-    case debit = "debit"
+extension Transaction {
+    
+    var dateFromString : Date  {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let date = dateFormatter.date(from: date)!
+        
+        return date
+    }
 }
 

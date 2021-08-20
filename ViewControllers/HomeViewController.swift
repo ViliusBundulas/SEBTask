@@ -37,7 +37,7 @@ final class HomeViewController: UIViewController {
         }
         
         viewModel.currentBallance.bind { value in
-            self.balanceLabel.text = "\(value ?? 0)"
+            self.informationView.balanceLabel.text = "\(value ?? 0)" + " Eur"
         }
         
         viewModel.selectedSegmentControlIndex.bind { index in
@@ -45,13 +45,20 @@ final class HomeViewController: UIViewController {
             
             switch index {
             case 0:
-                self.balanceLabel.text = "\(self.viewModel.currentBallance.value ?? 0)"
+                self.informationView.balanceLabel.text =
+                    "\(self.viewModel.currentBallance.value ?? 0)" + " Eur"
+                self.informationView.descriptionLabel.text = "Current balance"
             case 1:
-                self.balanceLabel.text = "\(self.viewModel.sumOfCreditTransactionsAmount.value ?? 0)"
+                self.informationView.balanceLabel.text =
+                    "\(self.viewModel.sumOfDebitTransactionsAmount.value ?? 0)" + " Eur"
+                self.informationView.descriptionLabel.text = "Sum of debits"
             case 2:
-                self.balanceLabel.text = "\(self.viewModel.sumOfDebitTransactionsAmount.value ?? 0)"
+                self.informationView.balanceLabel.text =
+                    "\(self.viewModel.sumOfCreditTransactionsAmount.value ?? 0)" + " Eur"
+                self.informationView.descriptionLabel.text = "Sum of credits"
             default:
-                self.balanceLabel.text = "\(self.viewModel.currentBallance.value ?? 0)"
+                self.informationView.balanceLabel.text =
+                    "\(self.viewModel.currentBallance.value ?? 0)" + " Eur"
             }
         }
         
@@ -61,11 +68,11 @@ final class HomeViewController: UIViewController {
                 self.activityIndicatorView.startAnimating()
                 self.transactionListTableView.isHidden = true
                 self.view.alpha = 0.6
-                self.balanceLabel.isHidden = true
+                self.informationView.balanceLabel.isHidden = true
             case false:
                 self.activityIndicatorView.stopAnimating()
                 self.transactionListTableView.isHidden = false
-                self.balanceLabel.isHidden = false
+                self.informationView.balanceLabel.isHidden = false
                 self.view.alpha = 1
             }
         }
@@ -75,7 +82,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         bindViewModel()
         setupViews()
         setupConstrains()
@@ -107,12 +114,7 @@ final class HomeViewController: UIViewController {
         return indicator
     }()
     
-    private lazy var balanceLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.backgroundColor = .red
-        return label
-    }()
+    private let informationView = InformationView()
     
     //MARK: - Button actions
     
@@ -126,7 +128,7 @@ final class HomeViewController: UIViewController {
         view.addSubview(transactionListTableView)
         view.addSubview(activityIndicatorView)
         view.addSubview(segmentedControl)
-        view.addSubview(balanceLabel)
+        view.addSubview(informationView)
     }
     
     //MARK: - Setup constrains
@@ -148,11 +150,10 @@ final class HomeViewController: UIViewController {
             make.height.equalTo(30)
         }
         
-        balanceLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(50)
+        informationView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view)
-            make.height.equalTo(100)
-            
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(segmentedControl.snp.top)
         }
     }
 }
@@ -195,6 +196,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

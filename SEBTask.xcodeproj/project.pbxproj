@@ -23,6 +23,7 @@
 		2553378126CD6BC8005597FC /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553378026CD6BC8005597FC /* DependencyContainer.swift */; };
 		2553378326CDB6F0005597FC /* TransactionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553378226CDB6F0005597FC /* TransactionListCell.swift */; };
 		2553378626CDB76A005597FC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2553378526CDB76A005597FC /* SnapKit */; };
+		2553378A26CFE269005597FC /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553378926CFE269005597FC /* InformationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		2553377A26CC7A0D005597FC /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		2553378026CD6BC8005597FC /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		2553378226CDB6F0005597FC /* TransactionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListCell.swift; sourceTree = "<group>"; };
+		2553378926CFE269005597FC /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				2553378226CDB6F0005597FC /* TransactionListCell.swift */,
+				2553378926CFE269005597FC /* InformationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				2553377B26CC7A0D005597FC /* Observable.swift in Sources */,
 				2553377726CC7968005597FC /* HomeViewModel.swift in Sources */,
 				2553377926CC79D4005597FC /* ApiManager.swift in Sources */,
+				2553378A26CFE269005597FC /* InformationView.swift in Sources */,
 				2553378126CD6BC8005597FC /* DependencyContainer.swift in Sources */,
 				2553378326CDB6F0005597FC /* TransactionListCell.swift in Sources */,
 				2553376A26CC69D2005597FC /* HomeViewController.swift in Sources */,

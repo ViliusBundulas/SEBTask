@@ -36,8 +36,8 @@ final class HomeViewController: UIViewController {
             self.transactionListTableView.reloadData()
         }
         
-        viewModel.sumOfTransactionsAmount.bind { _ in
-            self.balanceLabel.text = "\(self.viewModel.sumOfTransactionsAmount.value ?? 0)"
+        viewModel.currentBallance.bind { value in
+            self.balanceLabel.text = "\(value ?? 0)"
         }
         
         viewModel.selectedSegmentControlIndex.bind { index in
@@ -45,13 +45,13 @@ final class HomeViewController: UIViewController {
             
             switch index {
             case 0:
-                self.balanceLabel.text = "\(self.viewModel.sumOfTransactionsAmount.value ?? 0)"
+                self.balanceLabel.text = "\(self.viewModel.currentBallance.value ?? 0)"
             case 1:
                 self.balanceLabel.text = "\(self.viewModel.sumOfCreditTransactionsAmount.value ?? 0)"
             case 2:
                 self.balanceLabel.text = "\(self.viewModel.sumOfDebitTransactionsAmount.value ?? 0)"
             default:
-                self.balanceLabel.text = "\(self.viewModel.sumOfTransactionsAmount.value ?? 0)"
+                self.balanceLabel.text = "\(self.viewModel.currentBallance.value ?? 0)"
             }
         }
         

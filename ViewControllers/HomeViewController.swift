@@ -60,11 +60,13 @@ final class HomeViewController: UIViewController {
             case true:
                 self.activityIndicatorView.startAnimating()
                 self.transactionListTableView.isHidden = true
+                self.view.alpha = 0.6
                 self.balanceLabel.isHidden = true
             case false:
                 self.activityIndicatorView.stopAnimating()
                 self.transactionListTableView.isHidden = false
                 self.balanceLabel.isHidden = false
+                self.view.alpha = 1
             }
         }
     }
@@ -73,7 +75,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
         bindViewModel()
         setupViews()
         setupConstrains()
@@ -82,10 +84,11 @@ final class HomeViewController: UIViewController {
     //MARK: - UI elements
     
     private lazy var segmentedControl: UISegmentedControl = {
-        let sc = UISegmentedControl(items: ["All Transactions", "Credits", "Debits"])
-        sc.selectedSegmentIndex = 0
-        sc.addTarget(self, action: #selector(handleSegmentChange), for: .valueChanged)
-        return sc
+        let segmentedControl = UISegmentedControl(items: ["All Transactions", "Debits", "Credits"])
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.backgroundColor = #colorLiteral(red: 0.8697404265, green: 0.8645706773, blue: 0.8737145066, alpha: 1)
+        segmentedControl.addTarget(self, action: #selector(handleSegmentChange), for: .valueChanged)
+        return segmentedControl
     }()
     
     private lazy var transactionListTableView: UITableView = {
@@ -107,7 +110,7 @@ final class HomeViewController: UIViewController {
     private lazy var balanceLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        
+        label.backgroundColor = .red
         return label
     }()
     
@@ -132,7 +135,7 @@ final class HomeViewController: UIViewController {
         
         transactionListTableView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalTo(view)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(200)
+            make.height.equalTo(view.snp.height).multipliedBy(0.7)
         }
         
         activityIndicatorView.snp.makeConstraints { make in
@@ -163,9 +166,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             return viewModel.transactions.value?.count ?? 0
         case 1:
-            return viewModel.creditTransactions.value?.count ?? 0
-        case 2:
             return viewModel.debitTransactions.value?.count ?? 0
+        case 2:
+            return viewModel.creditTransactions.value?.count ?? 0
         default:
             return viewModel.transactions.value?.count ?? 0
         }
@@ -178,16 +181,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             switch viewModel.transactions.value?[indexPath.row].type {
             case .credit:
-                configureCreditTransactionCell(cell, at: indexPath, from: viewModel.transactions.value!, with: #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1))
+                configureCreditTransactionCell(cell, at: indexPath, from: viewModel.transactions.value!, with: #colorLiteral(red: 1, green: 0.2777053714, blue: 0.3239941895, alpha: 1))
             case .debit:
-                configureDebitTransactionCell(cell, at: indexPath, from: viewModel.transactions.value!, with: #colorLiteral(red: 1, green: 0.2777053714, blue: 0.3239941895, alpha: 1))
+                configureDebitTransactionCell(cell, at: indexPath, from: viewModel.transactions.value!, with: #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1))
             default:
                 return cell
             }
         case 1:
-            configureCreditTransactionCell(cell, at: indexPath, from: viewModel.creditTransactions.value!, with: #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1))
+            configureDebitTransactionCell(cell, at: indexPath, from: viewModel.debitTransactions.value!, with: #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1))
         case 2:
-            configureDebitTransactionCell(cell, at: indexPath, from: viewModel.debitTransactions.value!, with: #colorLiteral(red: 1, green: 0.2777053714, blue: 0.3239941895, alpha: 1))
+            configureCreditTransactionCell(cell, at: indexPath, from: viewModel.creditTransactions.value!, with: #colorLiteral(red: 1, green: 0.2777053714, blue: 0.3239941895, alpha: 1))
         default:
             return cell
         }
@@ -201,14 +204,14 @@ extension HomeViewController {
     
     func configureCreditTransactionCell(_ cell: TransactionListCell, at index: IndexPath, from transactions: Transactions, with color: UIColor) {
         cell.amountLabel.textColor = color
-        cell.amountLabel.text = "+" + transactions[index.row].amount + " Eur"
+        cell.amountLabel.text = "-" + transactions[index.row].amount + " Eur"
         cell.nameLabel.text = transactions[index.row].counterPartyName
         cell.dateLabel.text = transactions[index.row].date
     }
     
     func configureDebitTransactionCell(_ cell: TransactionListCell, at index: IndexPath, from transactions: Transactions, with color: UIColor) {
         cell.amountLabel.textColor = color
-        cell.amountLabel.text = "-" + transactions[index.row].amount + " Eur"
+        cell.amountLabel.text = "+" + transactions[index.row].amount + " Eur"
         cell.nameLabel.text = transactions[index.row].counterPartyName
         cell.dateLabel.text = transactions[index.row].date
     }

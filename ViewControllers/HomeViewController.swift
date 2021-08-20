@@ -36,8 +36,23 @@ final class HomeViewController: UIViewController {
             self.transactionListTableView.reloadData()
         }
         
-        viewModel.selectedSegmentControlIndex.bind { _ in
+        viewModel.sumOfTransactionsAmount.bind { _ in
+            self.balanceLabel.text = "\(self.viewModel.sumOfTransactionsAmount.value ?? 0)"
+        }
+        
+        viewModel.selectedSegmentControlIndex.bind { index in
             self.transactionListTableView.reloadData()
+            
+            switch index {
+            case 0:
+                self.balanceLabel.text = "\(self.viewModel.sumOfTransactionsAmount.value ?? 0)"
+            case 1:
+                self.balanceLabel.text = "\(self.viewModel.sumOfCreditTransactionsAmount.value ?? 0)"
+            case 2:
+                self.balanceLabel.text = "\(self.viewModel.sumOfDebitTransactionsAmount.value ?? 0)"
+            default:
+                self.balanceLabel.text = "\(self.viewModel.sumOfTransactionsAmount.value ?? 0)"
+            }
         }
         
         viewModel.isLoading.bind { isLoading in
@@ -45,9 +60,11 @@ final class HomeViewController: UIViewController {
             case true:
                 self.activityIndicatorView.startAnimating()
                 self.transactionListTableView.isHidden = true
+                self.balanceLabel.isHidden = true
             case false:
                 self.activityIndicatorView.stopAnimating()
                 self.transactionListTableView.isHidden = false
+                self.balanceLabel.isHidden = false
             }
         }
     }
@@ -87,6 +104,13 @@ final class HomeViewController: UIViewController {
         return indicator
     }()
     
+    private lazy var balanceLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
     //MARK: - Button actions
     
     @objc func handleSegmentChange(sender: UISegmentedControl) {
@@ -99,6 +123,7 @@ final class HomeViewController: UIViewController {
         view.addSubview(transactionListTableView)
         view.addSubview(activityIndicatorView)
         view.addSubview(segmentedControl)
+        view.addSubview(balanceLabel)
     }
     
     //MARK: - Setup constrains
@@ -118,6 +143,13 @@ final class HomeViewController: UIViewController {
             make.bottom.equalTo(transactionListTableView.snp.top)
             make.leading.trailing.equalTo(transactionListTableView)
             make.height.equalTo(30)
+        }
+        
+        balanceLabel.snp.makeConstraints { make in
+            make.top.equalTo(view).offset(50)
+            make.leading.trailing.equalTo(view)
+            make.height.equalTo(100)
+            
         }
     }
 }

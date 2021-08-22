@@ -207,14 +207,24 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension HomeViewController {
     
-    func configureCreditTransactionCell(_ cell: TransactionListCell, at index: IndexPath, from transactions: Transactions, with color: UIColor) {
+    func configureCreditTransactionCell(
+        _ cell: TransactionListCell,
+        at index: IndexPath,
+        from transactions: Transactions,
+        with color: UIColor
+    ) {
         cell.amountLabel.textColor = color
         cell.amountLabel.text = "-" + transactions[index.row].amount + " Eur"
         cell.nameLabel.text = transactions[index.row].counterPartyName
         cell.dateLabel.text = transactions[index.row].date
     }
     
-    func configureDebitTransactionCell(_ cell: TransactionListCell, at index: IndexPath, from transactions: Transactions, with color: UIColor) {
+    func configureDebitTransactionCell(
+        _ cell: TransactionListCell,
+        at index: IndexPath,
+        from transactions: Transactions,
+        with color: UIColor
+    ) {
         cell.amountLabel.textColor = color
         cell.amountLabel.text = "+" + transactions[index.row].amount + " Eur"
         cell.nameLabel.text = transactions[index.row].counterPartyName

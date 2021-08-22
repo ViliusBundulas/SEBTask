@@ -47,8 +47,13 @@ class HomeViewModel {
     }
     
     func getCurrentBalance() {
-        self.currentBallance.value =
-            Double(self.sumOfDebitTransactionsAmount.value!) - Double(self.sumOfCreditTransactionsAmount.value!)
+        guard
+            let sumOfDebitTransactions = self.sumOfDebitTransactionsAmount.value,
+            let sumOfCreditTransactions = self.sumOfCreditTransactionsAmount.value
+        else {
+            return
+        }
+        self.currentBallance.value = Double(sumOfDebitTransactions) - Double(sumOfCreditTransactions)
     }
     
     func sortAllTransactions(from result: Transactions) {

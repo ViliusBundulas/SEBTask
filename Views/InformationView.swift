@@ -62,6 +62,5 @@ class InformationView: UIView {
         descriptionLabel.textAlignment = .center
         descriptionLabel.font = UIFont.boldSystemFont(ofSize: 20)
         descriptionLabel.alpha = 0.7
-        descriptionLabel.text = "Current balance"
     }
 }

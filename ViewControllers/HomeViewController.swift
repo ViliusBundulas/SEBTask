@@ -37,7 +37,7 @@ final class HomeViewController: UIViewController {
         }
         
         viewModel.currentBallance.bind { value in
-            self.informationView.balanceLabel.text = "\(value ?? 0)" + " Eur"
+            self.informationView.balanceLabel.text = "\(value ?? .zero)" + " Eur"
         }
         
         viewModel.selectedSegmentControlIndex.bind { index in
@@ -46,19 +46,19 @@ final class HomeViewController: UIViewController {
             switch index {
             case 0:
                 self.informationView.balanceLabel.text =
-                    "\(self.viewModel.currentBallance.value ?? 0)" + " Eur"
+                    "\(self.viewModel.currentBallance.value ?? .zero)" + " Eur"
                 self.informationView.descriptionLabel.text = "Current balance"
             case 1:
                 self.informationView.balanceLabel.text =
-                    "\(self.viewModel.sumOfDebitTransactionsAmount.value ?? 0)" + " Eur"
+                    "\(self.viewModel.sumOfDebitTransactionsAmount.value ?? .zero)" + " Eur"
                 self.informationView.descriptionLabel.text = "Sum of debits"
             case 2:
                 self.informationView.balanceLabel.text =
-                    "\(self.viewModel.sumOfCreditTransactionsAmount.value ?? 0)" + " Eur"
+                    "\(self.viewModel.sumOfCreditTransactionsAmount.value ?? .zero)" + " Eur"
                 self.informationView.descriptionLabel.text = "Sum of credits"
             default:
                 self.informationView.balanceLabel.text =
-                    "\(self.viewModel.currentBallance.value ?? 0)" + " Eur"
+                    "\(self.viewModel.currentBallance.value ?? .zero)" + " Eur"
             }
         }
         
@@ -92,7 +92,7 @@ final class HomeViewController: UIViewController {
     
     private lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["All Transactions", "Debits", "Credits"])
-        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.selectedSegmentIndex = .zero
         segmentedControl.backgroundColor = #colorLiteral(red: 0.8697404265, green: 0.8645706773, blue: 0.8737145066, alpha: 1)
         segmentedControl.addTarget(self, action: #selector(handleSegmentChange), for: .valueChanged)
         return segmentedControl
@@ -165,13 +165,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch viewModel.selectedSegmentControlIndex.value {
         case 0:
-            return viewModel.transactions.value?.count ?? 0
+            return viewModel.transactions.value?.count ?? .zero
         case 1:
-            return viewModel.debitTransactions.value?.count ?? 0
+            return viewModel.debitTransactions.value?.count ?? .zero
         case 2:
-            return viewModel.creditTransactions.value?.count ?? 0
+            return viewModel.creditTransactions.value?.count ?? .zero
         default:
-            return viewModel.transactions.value?.count ?? 0
+            return viewModel.transactions.value?.count ?? .zero
         }
     }
     

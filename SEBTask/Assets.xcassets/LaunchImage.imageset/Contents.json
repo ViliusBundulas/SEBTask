@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "seb_k_neg_45mm150dpi.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "seb_k_neg_45mm150dpi-1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "seb_k_neg_45mm150dpi-2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

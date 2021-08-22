@@ -19,9 +19,9 @@ class HomeViewModel {
     var transactions = Observable<Transactions?>(nil)
     var debitTransactions = Observable<Transactions?>(nil)
     var creditTransactions = Observable<Transactions?>(nil)
-    var sumOfDebitTransactionsAmount = Observable<Double?>(nil)
-    var sumOfCreditTransactionsAmount = Observable<Double?>(nil)
-    var currentBallance = Observable<Double?>(nil)
+    var sumOfDebitTransactionsAmount = Observable<Decimal?>(nil)
+    var sumOfCreditTransactionsAmount = Observable<Decimal?>(nil)
+    var currentBallance = Observable<Decimal?>(nil)
     var selectedSegmentControlIndex = Observable<Int>(0)
     
     func getTransactions() {
@@ -53,7 +53,7 @@ class HomeViewModel {
         else {
             return
         }
-        self.currentBallance.value = Double(sumOfDebitTransactions) - Double(sumOfCreditTransactions)
+        self.currentBallance.value = sumOfDebitTransactions - sumOfCreditTransactions
     }
     
     func sortAllTransactions(from result: Transactions) {
@@ -74,13 +74,13 @@ class HomeViewModel {
     
     func sumDebitTransactions(from result: Transactions) {
         self.sumOfDebitTransactionsAmount.value = self.debitTransactions.value?
-            .map { Double($0.amount) ?? 0 }
+            .map { Decimal(string: $0.amount) ?? 0 }
             .reduce(0, +)
     }
     
     func sumCreditTransactions(from result: Transactions) {
         self.sumOfCreditTransactionsAmount.value = self.creditTransactions.value?
-            .map { Double($0.amount) ?? 0 }
+            .map { Decimal(string: $0.amount) ?? 0 }
             .reduce(0, +)
     }
 }
